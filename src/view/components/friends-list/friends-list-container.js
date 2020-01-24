@@ -4,9 +4,7 @@ import { addFriend } from '../../../store/actions'
 
 function mapStateToProps (state) {
   return {
-    friends: [...state.friends].filter(filtered).sort(sortByName).map(function (friend, index) {
-      return  {id: index, name: `${friend.name} - состоит из ${friend.name.length} символов`}
-    })
+    friends: [...state.friends].filter(filtered).sort(sortByName).map(mapFriend)
   }
 }
 
@@ -26,4 +24,6 @@ function sortByName(a, b){
   return 0
 }
 
-const filtered = (friend)=> friend.name.length > 15;
+const filtered = ({name})=> name.length > 15;
+
+const mapFriend = ({id , name}) => ({id , name: `${name} - количество символов ${name.length}` })
